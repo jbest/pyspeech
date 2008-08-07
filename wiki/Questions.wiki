@@ -1,7 +1,0 @@
-#summary Questions about pyspeech
-
-= Introduction =
-
-For anyone who has tried speech.py and is having trouble, please file a ticket under "Issues".  For anybody who just has questions, feel free to leave a question here, along with your email address, and I'll reply here and to your email.  That way the community benefits along with you.
-
-= Comments =
