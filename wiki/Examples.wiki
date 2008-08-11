@@ -1,6 +1,24 @@
 #labels Featured
 If you have any trouble with the examples below, please [Discussion leave a comment] about it, and I or another user will be glad to help you out.
 
+== Quick reference ==
+
+speech module functions:
+
+  * {{{speech.say(phrase)}}}: speak out loud.
+  * {{{speech.listenforanything(callback) -> Listener}}}: when any dictation is heard, run the callback (see below for details).
+  * {{{speech.listenfor(phraselist, callback) -> Listener}}}: when any string in the given list of phrases is heard, run the callback (see below for details.)
+  * {{{speech.islistening()}}}: True if any Listeners are listening.
+  * {{{speech.stoplistening()}}}: stops all Listeners.
+
+Format of the callback function passed to {{{listenfor()}}} and {{{listenforanything()}}}:
+  * {{{callback(heard_phrase, Listener)}}}: First arg is a string containing the text of the phrase that was heard.  Second arg is the Listener that heard the phrase -- the same Listener that was returned by listenfor() in the first place.
+
+Listener instance methods (call these on the object returned by listenfor() or passed to the callback):
+
+  * {{{islistening()}}}: True if the Listener hasn't been stopped yet.
+  * {{{stoplistening()}}}: stops the Listener.  You can't start it again after that.
+
 == Simple example ==
 
 Repeats whatever it hears you say, until you say "turn off".
@@ -22,9 +40,11 @@ while listener.islistening():
 
 == Using listenfor() ==
 
-Replace the "listenforanything" call above with
+Replace the {{{listenforanything}}} call above with
+
 {{{ listener = speech.listenfor(['turn off', 'hello', 'how are you'], response) }}}
-and speech will only call the response callback if one of those phrases is heard.
+
+and speech will only call the response callback if one of those phrases is heard.  You can use as many phrases as you wish; I've successfully used 12,000 sentences!
 
 == Using all functionality ==
 
