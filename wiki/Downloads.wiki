@@ -1,4 +1,2 @@
-#summary One-sentence summary of this page.
 #labels Featured
-
-Downloads are hosted at [http://pypi.python.org/pypi/speech/ PyPI.]
+Downloads are available at [http://pypi.python.org/pypi/speech/ PyPI.]
