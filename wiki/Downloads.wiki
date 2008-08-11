@@ -1,3 +1,4 @@
+#labels Featured
 Source tarball and Python .eggs are available at [http://pypi.python.org/pypi/speech/ PyPI.]
 
 If you just want to install it, see the simple instructions on the [http://pyspeech.googlecode.com home page].
