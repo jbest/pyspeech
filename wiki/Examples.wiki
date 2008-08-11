@@ -35,7 +35,7 @@ listener = speech.listenforanything(response)
 
 import time
 while listener.islistening():
-    time.sleep(1)
+    time.sleep(.1)
 }}}
 
 == Using listenfor() ==
