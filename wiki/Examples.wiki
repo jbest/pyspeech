@@ -20,6 +20,11 @@ while listener.islistening():
     time.sleep(1)
 }}}
 
+== Using listenfor() ==
+
+Replace the "listenforanything" call above with
+{{{ listener = speech.listenfor(['turn off', 'hello', 'how are you'], response) }}}
+and speech will only call the response callback if one of those phrases is heard.
 
 == Using all functionality ==
 
