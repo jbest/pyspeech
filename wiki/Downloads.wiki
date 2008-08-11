@@ -1,2 +1,1 @@
-#labels Featured
 Downloads are available at [http://pypi.python.org/pypi/speech/ PyPI.]
