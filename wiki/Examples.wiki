@@ -1,0 +1,53 @@
+#summary Example code.
+#labels Featured
+
+== Example displaying all functionality ==
+
+{{{
+import speech
+
+speech.say("I am speaking out loud.")
+
+# Handle a specific set of heard phrases with a callback.
+def L1callback(phrase, listener):
+  print "Heard the phrase: %s" % phrase
+L1 = speech.listenfor(["any of", "these will", "match"], L1callback)
+       
+# You can listen for multiple things at once, doing different
+# things for each.
+def L2callback(phrase, listener):
+  print "Another phrase: %s" % phrase
+L2 = speech.listenfor(["good morning Michael"], L2callback)
+
+# You can listen for general dictation as well.  You can
+# stop listening using the callback's second argument.
+def L3callback(phrase, listener):
+  speech.say(phrase) # repeat it back
+  if phrase == "stop now please":
+    listener.stoplistening()
+
+L3 = speech.listenforanything(L3callback)
+
+# All callbacks get automatically executed on a single separate thread.
+# Meanwhile, you can just do whatever with your program, or sleep.
+# As long as your main program is running code, speech will keep
+# listening.
+
+import time
+while L3.islistening(): # till "stop now please" is heard
+  time.sleep(1)
+
+assert not L3.islistening()
+assert speech.islistening() # to anything
+print "Dictation is now stopped, L1 and L2 are still going."
+
+L1.stoplistening()
+print "Now only L2 is going"
+
+# Listen for L2 for a while more, then turn it off.
+time.sleep(30)
+
+speech.stoplistening() # stop all remaining listeners
+assert not speech.islistening()
+
+}}}
