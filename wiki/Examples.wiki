@@ -1,7 +1,29 @@
-#summary Example code.
 #labels Featured
+If you have any trouble with the examples below, please [Discussion leave a comment] about it, and I or another user will be glad to help you out.
 
-== Example displaying all functionality ==
+== Simple example ==
+
+Repeats whatever it hears you say, until you say "turn off".
+
+{{{
+import speech
+
+def response(phrase, listener):
+    speech.say("You said %s" % phrase
+    if phrase == "turn off":
+        listener.stoplistening()
+
+listener = speech.listenforanything(response)
+
+import time
+while listener.islistening():
+    time.sleep(1)
+}}}
+
+
+== Using all functionality ==
+
+See the inline comments and assertions.
 
 {{{
 import speech
