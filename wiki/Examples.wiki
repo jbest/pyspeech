@@ -6,9 +6,10 @@ If you have any trouble with the examples below, please [Discussion leave a comm
 {{{speech}}} module functions:
 
   * {{{speech.say(phrase)}}}: speak out loud.
+  * {{{speech.input(prompt=None, phraselist=None)}}}: print the prompt, then return the phrase heard from the phraselist.  Blocks the thread.
 
-  * {{{speech.listenforanything(callback) -> Listener}}}: when any dictation is heard, run the callback on a separate thread (see below for details).
-  * {{{speech.listenfor(phraselist, callback) -> Listener}}}: when any string in the given list of phrases is heard, run the callback on a separate thread (see below for details.)
+  * {{{speech.listenforanything(callback) -> Listener}}}: when any dictation is heard, run the callback on a separate thread (see below for details).  Doesn't block the thread.
+  * {{{speech.listenfor(phraselist, callback) -> Listener}}}: when any string in the given list of phrases is heard, run the callback on a separate thread (see below for details.)  Doesn't block the thread.
 
   * {{{speech.islistening()}}}: True if any {{{Listener}}}s are listening.
   * {{{speech.stoplistening()}}}: stops all {{{Listener}}}s.
@@ -21,32 +22,52 @@ Format of the callback function passed to {{{listenfor()}}} and {{{listenforanyt
   * {{{islistening()}}}: True if the {{{Listener}}} hasn't been stopped yet.
   * {{{stoplistening()}}}: stops the {{{Listener}}}.  You can't start it again after that.
 
-== Simple example ==
+== Simplest example ==
 
-Repeats whatever it hears you say, until you say "turn off".
+Whenever you say the name of a dwarf, it says it back, until you say "turn off".  Your program can't do anything else while it's waiting for speech.
+
+{{{
+import speech
+
+while True:
+    phrase = speech.input("Say the name of a dwarf.",
+       ['Sleepy', 'Happy', 'Dopey', 'Killer', 'Sneezy', 'Bashful', 'Doc', 'turn off'] )
+    speech.say("You said %s" % phrase)
+    if phrase == "turn off":
+        break
+}}}
+
+Note that {{{speech.input()}}} will only return when you say something in the given phraselist.  If you don't pass in a phraselist, {{{speech.input()}}} will accept anything at all.
+
+== Simple example, non-blocking ==
+
+{{{speech.input()}}} in the above example blocks the program until it hears you.  Below is the same example using non-blocking listeners, so that your program can do other things while waiting for input.
 
 {{{
 import speech
 
 def response(phrase, listener):
-    speech.say("You said %s" % phrase
+    speech.say("You said %s" % phrase)
     if phrase == "turn off":
         listener.stoplistening()
 
 listener = speech.listenforanything(response)
 
+# Your program can do whatever it wants now, and when a spoken phrase is heard,
+# response() will be called on a separate thread.
 import time
 while listener.islistening():
-    time.sleep(.1)
+    time.sleep(1)
+    print "Still waiting..."
 }}}
 
 == Using listenfor() ==
 
-Replace the {{{listenforanything}}} call above with
+Just as {{{speech.input()}}} can be limited to a certain set of phrases, if you replace the {{{listenforanything}}} call above with
 
 {{{ listener = speech.listenfor(['turn off', 'hello', 'how are you'], response) }}}
 
-and {{{speech}}} will only call the response callback if one of those phrases is heard.  You can use as many phrases as you wish; I've successfully used 12,000 sentences!
+then {{{speech}}} will only call the response callback if one of those phrases is heard.  You can use as many phrases as you wish; I've successfully used 12,000 sentences!
 
 == Using all functionality ==
 
@@ -55,7 +76,10 @@ See the inline comments and assertions.
 {{{
 import speech
 
-speech.say("I am speaking out loud.")
+response = ''
+while response.lower() != 'uncle':
+  speech.say("Say uncle!")
+  response = speech.input()
 
 # Handle a specific set of heard phrases with a callback.
 def L1callback(phrase, listener):
