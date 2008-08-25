@@ -1,6 +1,4 @@
 #labels Featured
-== FAQ ==
-
 * How do I make speech recognition not suck? *
 
 Microsoft's Speech Recognition is awful at first, especially when not listening for a short list of phrases.  Be sure to train it: Start Menu -> Settings -> Control Panel -> Speech -> Train Profile.
