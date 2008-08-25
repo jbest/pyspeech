@@ -41,7 +41,7 @@ Note that {{{speech.input()}}} will only return when you say something in the gi
 
 == Simple example, non-blocking ==
 
-{{{speech.input()}}} in the above example blocks the program until it hears you.  Below is the same example using non-blocking listeners, so that your program can do other things while waiting for input.
+{{{speech.input()}}} in the above example blocks the program until it hears you.  Below is the same example using non-blocking listeners, so that your program can do other things while waiting for speech input.
 
 {{{
 import speech
@@ -51,23 +51,28 @@ def response(phrase, listener):
     if phrase == "turn off":
         listener.stoplistening()
 
-listener = speech.listenforanything(response)
+listener = speech.listenfor(
+    ['Sleepy', 'Happy', 'Dopey', 'Killer', 'Sneezy', 'Bashful', 'Doc', 'turn off'],
+    response)
 
-# Your program can do whatever it wants now, and when a spoken phrase is heard,
-# response() will be called on a separate thread.
+# Your program can do whatever it wants now, and when a dwarf's name is heard,
+# response() will be called on a separate thread.  This can happen over and over --
+# as long as the listener hasn't been stopped.
 import time
 while listener.islistening():
     time.sleep(1)
     print "Still waiting..."
 }}}
 
-== Using listenfor() ==
+The example above uses 8 phrases, but you can use as many phrases as you wish; I've successfully used 12,000 sentences!
 
-Just as {{{speech.input()}}} can be limited to a certain set of phrases, if you replace the {{{listenforanything}}} call above with
+== Using listenforanything() ==
 
-{{{ listener = speech.listenfor(['turn off', 'hello', 'how are you'], response) }}}
+Just as {{{speech.input()}}} can leave out the phraselist to accept general dictation, if you replace the {{{listenfor}}} call above with
 
-then {{{speech}}} will only call the response callback if one of those phrases is heard.  You can use as many phrases as you wish; I've successfully used 12,000 sentences!
+{{{ listener = speech.listenforanything(response) }}}
+
+then {{{speech}}} will call the response callback as soon as any recognizable speech is heard.
 
 == Using all functionality ==
 
