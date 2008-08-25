@@ -9,4 +9,4 @@ Nope.  Unfortunately, Linux doesn't have any speech recognition support worth ta
 
 * Why shouldn't I use PyTTS instead? *
 
-[http://www.cs.unc.edu/Research/assist/doc/pytts/ PyTTS] provides text-to-speech service, not speech recognition service.  However, it gives you much more control over the voice (pitch, speed, etc) -- speech.py just uses the default Windows voice as a convenience in case you need something spoken.  If you need speech recognition and also precise control of the computer's voice, use both modules.
+The [http://www.cs.unc.edu/Research/assist/doc/pytts/ PyTTS] package provides text-to-speech service, not speech recognition service.  However, it gives you much more control over the voice (pitch, speed, etc) -- speech.py just uses the default Windows voice as a convenience in case you need something spoken.  If you need speech recognition and also precise control of the computer's voice, use both packages.
