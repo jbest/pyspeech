@@ -10,3 +10,7 @@ Nope.  Unfortunately, Linux doesn't have any speech recognition support worth ta
 * Why shouldn't I use PyTTS instead? *
 
 The [http://www.cs.unc.edu/Research/assist/doc/pytts/ PyTTS] package provides text-to-speech service, not speech recognition service.  However, it gives you much more control over the voice (pitch, speed, etc) -- speech.py just uses the default Windows voice as a convenience in case you need something spoken.  If you need speech recognition and also precise control of the computer's voice, use both packages.
+
+* I'm on Vista, and I get an error when I use speech.say(). *
+
+If you have installed SAPI5VoiceInstaller.msi on Windows Vista, you didn't need to and it breaks Windows's voice synthesis.  Just select Anna as the default voice in the Control Panel and things should work again.
