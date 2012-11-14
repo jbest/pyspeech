@@ -1,2 +1,2 @@
-  * [SidebarTest#1 part one]
-  * [SidebarTest#2 part two]
+  * [SideBarTest#1 part one]
+  * [SideBarTest#2 part two]
