@@ -1,5 +1,7 @@
 Test.
 *Test 2*.
-  * [SideBarTest#1 part one]
-  * Hi
+  * *[SideBarTest#1 part one]*
+  * *Hi*
     * [SideBarTest#3 part three]
+
+= test =
